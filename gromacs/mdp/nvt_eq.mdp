@@ -1,0 +1,46 @@
+; nvt_eq.mdp - NVT equilibration, 300 K, 500 ps, RNA duplex (OL3 + TIP3P)
+; solute position-restrained (define -DPOSRES) so water/ions relax around a fixed duplex.
+define                  = -DPOSRES
+integrator              = md
+dt                      = 0.002          ; 2 fs (h-bonds constrained by LINCS)
+nsteps                  = 250000         ; 500 ps
+comm-mode               = Linear
+
+; output
+nstxout-compressed      = 5000           ; 10 ps
+nstenergy               = 5000
+nstlog                  = 5000
+
+; neighbour search / electrostatics (matches Pearce-group cutoffs)
+cutoff-scheme           = Verlet
+nstlist                 = 20
+rlist                   = 1.0
+coulombtype             = PME
+rcoulomb                = 1.0
+rvdw                    = 1.0
+pme_order               = 4
+fourierspacing          = 0.12
+DispCorr                = EnerPres
+
+; bonds
+continuation            = no
+constraint_algorithm    = lincs
+constraints             = h-bonds
+lincs_iter              = 1
+lincs_order             = 4
+
+; temperature coupling (split solute / solvent; see make_ndx note in SLURM script)
+tcoupl                  = V-rescale
+tc-grps                 = RNA  Water_and_ions
+tau_t                   = 0.1  0.1
+ref_t                   = 300  300
+
+; no pressure coupling in NVT
+pcoupl                  = no
+
+; velocity generation
+gen_vel                 = yes
+gen_temp                = 300
+gen_seed                = -1
+
+pbc                     = xyz

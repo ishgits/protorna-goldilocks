@@ -1,0 +1,7 @@
+name,sequence,class,nn_dG37_kcal_mol,rel_stability_rank,source,note
+gc_anchor,GCGCGC,canonical,-10.46,1,"Xia 1998 (Biochemistry 37:14719) NN via NNDB; computed by src/nn_predict.py","GC-rich A-RNA; most stable anchor. Verify exact value vs NNDB."
+mixed_anchor,GCAUGC,canonical,-7.64,2,"Xia 1998 NN via NNDB; src/nn_predict.py","intermediate stability. Verify vs NNDB."
+au_anchor,AUAUAU,canonical,-0.54,3,"Xia 1998 NN via NNDB; src/nn_predict.py","AU-rich; only MARGINALLY stable as isolated 6-mer (low Tm) - see FABLE5_FINDINGS A1/A7."
+GACC,GACC,canonical,-3.76,NA,"Xia 1998 NN via NNDB; src/nn_predict.py","Sponer/Banas MD benchmark tetramer (used with context/dangling ends). Verify vs NNDB."
+CAAU,CAAU,canonical,0.40,NA,"Xia 1998 NN via NNDB; src/nn_predict.py","Sponer/Banas MD benchmark tetramer; near-zero isolated dG37. Verify vs NNDB."
+zp_ladder,Z-P ladder,non_canonical,,1-2,"Hoshika et al. Science 2019 (363:884)","Benner Z:P is a 3-H-bond, GC-like pair; expected to rank near GC. Exact RNA Tm concentration-dependent; fill from Hoshika SI before use as gate."

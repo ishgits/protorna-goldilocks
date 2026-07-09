@@ -1,0 +1,42 @@
+; npt_prod.mdp - NPT production, 300 K / 1 bar, 50 ns, RNA duplex (OL3 + TIP3P)
+; NO restraints. Nose-Hoover + Parrinello-Rahman for a correct production ensemble
+; (matches the Pearce-group rationale in README_inputs.md).
+integrator              = md
+dt                      = 0.002
+nsteps                  = 25000000       ; 50 ns  (raise to 50000000 for 100 ns)
+comm-mode               = Linear
+
+nstxout-compressed      = 5000           ; 10 ps -> 5000-frame trajectory
+compressed-x-grps       = RNA            ; keep trajectories small: solute only
+nstenergy               = 5000
+nstlog                  = 5000
+
+cutoff-scheme           = Verlet
+nstlist                 = 20
+rlist                   = 1.0
+coulombtype             = PME
+rcoulomb                = 1.0
+rvdw                    = 1.0
+pme_order               = 4
+fourierspacing          = 0.12
+DispCorr                = EnerPres
+
+continuation            = yes
+constraint_algorithm    = lincs
+constraints             = h-bonds
+lincs_iter              = 1
+lincs_order             = 4
+
+tcoupl                  = Nose-Hoover
+tc-grps                 = RNA  Water_and_ions
+tau_t                   = 0.5  0.5
+ref_t                   = 300  300
+
+pcoupl                  = Parrinello-Rahman
+pcoupltype              = isotropic
+tau_p                   = 2.0
+ref_p                   = 1.0
+compressibility         = 4.5e-5
+
+gen_vel                 = no
+pbc                     = xyz

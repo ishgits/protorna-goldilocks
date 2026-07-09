@@ -1,0 +1,7 @@
+# Analysis + MD engine (pip path). For pNAB + AmberTools use environment.yml (conda).
+openmm>=8.1
+MDAnalysis>=2.6
+numpy>=1.24
+PyYAML>=6.0
+# optional: figures
+matplotlib>=3.7

@@ -1,0 +1,14 @@
+; em.mdp - steepest-descent energy minimisation (RNA duplex, OL3 + TIP3P)
+; adapted from Pearce-group em.mdp; RNA-native, 300 K target downstream
+integrator      = steep
+emtol           = 1000.0        ; kJ/mol/nm
+emstep          = 0.01
+nsteps          = 50000
+
+nstlist         = 10
+cutoff-scheme   = Verlet
+ns_type         = grid
+coulombtype     = PME
+rcoulomb        = 1.0
+rvdw            = 1.0
+pbc             = xyz

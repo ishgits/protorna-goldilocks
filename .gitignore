@@ -1,0 +1,24 @@
+# OS / editor cruft
+.DS_Store
+__MACOSX/
+
+# Python caches
+__pycache__/
+*.pyc
+
+# logs / SLURM job output
+*.log
+*.out
+*.err
+
+# private / non-public material (never commit)
+_private_application/
+
+# scratch working dirs
+#   /work/  -> top-level scratch only (real_anchor/work/ IS committed, see negation below)
+/work/
+real_anchor/repro_work/
+
+# large trajectories, except the committed real-anchor result
+work/*.dcd
+!real_anchor/work/*.dcd

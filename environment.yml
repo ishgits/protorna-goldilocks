@@ -1,0 +1,20 @@
+name: protorna
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.10
+  - openmm>=8.1
+  - ambertools>=23        # tleap, antechamber, parmed -> non-canonical parameterization
+  - mdanalysis>=2.6
+  - openbabel             # pNAB dependency
+  - numpy
+  - scipy
+  - pyyaml
+  - matplotlib
+  - mdtraj
+  - pdbfixer
+  - pip
+  - pip:
+      - pnab              # proto-Nucleic Acid Builder (GT-NucleicAcids/pnab)
+# QM/RESP charge derivation (Modal burst allocation) can add: psi4, resp

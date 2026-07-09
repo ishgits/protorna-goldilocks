@@ -1,0 +1,44 @@
+# Benchmark duplexes and the KNOWN ordering the pipeline must reproduce before screening.
+# RNA-native only (no DNA anchors) — consistency beats benchmark richness.
+
+anchors:
+  # Canonical anchor: Turner-lab A-RNA tetramers/short duplexes (Sponer/Banas OL3 protocols).
+  - name: gc_anchor
+    sequence: GCGCGC          # GC-rich -> most stable
+    class: canonical
+    expected_rank: 1
+  - name: mixed_anchor
+    sequence: GCAUGC
+    class: canonical
+    expected_rank: 2
+  - name: au_anchor
+    sequence: AUAUAU          # AU-rich -> least stable
+    class: canonical
+    expected_rank: 3
+
+  # Non-canonical anchor: Benner Z-P / hachimoji-RNA ladder (Hoshika et al., Science 2019).
+  # Proves the pipeline generalises past Watson-Crick before any novel base is screened.
+  - name: zp_hachimoji
+    sequence: "ZPZPZP"        # placeholder token; mapped to Z/P residue templates
+    class: non_canonical
+    note: "experimental Tm predicted to ~2 C; use as generalisation gate"
+
+# Expected relative stability, most -> least. The analysis GATE checks this exact ordering.
+expected_ordering: [gc_anchor, mixed_anchor, au_anchor]
+
+# Hud design space for the screen: {core} x {exocyclic}. ~91 candidate proto-RNA bases.
+# Only a coarse-scored shortlist (~10-20) proceeds to explicit-solvent MD.
+variants:
+  - {id: pyr_NH2, core: pyrimidine, exocyclic: [NH2]}
+  - {id: pyr_O,   core: pyrimidine, exocyclic: [O]}
+  - {id: pur_NH2, core: purine,     exocyclic: [NH2]}
+  - {id: pur_O,   core: purine,     exocyclic: [O]}
+  - {id: tri_NH2, core: s-triazine, exocyclic: [NH2]}
+  - {id: tri_O,   core: s-triazine, exocyclic: [O]}
+  # ... enumerated programmatically to the full ~91 in build_duplex.build_variants()
+
+md:
+  forcefield: chiOL3          # AMBER OL3 RNA
+  water: OPC                  # OPC (fallback TIP3P)
+  production_ns: 50
+  replicates: 3

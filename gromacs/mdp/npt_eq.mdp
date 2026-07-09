@@ -1,0 +1,41 @@
+; npt_eq.mdp - NPT equilibration, 300 K / 1 bar, 1 ns, RNA duplex (OL3 + TIP3P)
+; still position-restrained; C-rescale barostat for a stable box equilibration.
+define                  = -DPOSRES
+integrator              = md
+dt                      = 0.002
+nsteps                  = 500000         ; 1 ns
+comm-mode               = Linear
+
+nstxout-compressed      = 5000
+nstenergy               = 5000
+nstlog                  = 5000
+
+cutoff-scheme           = Verlet
+nstlist                 = 20
+rlist                   = 1.0
+coulombtype             = PME
+rcoulomb                = 1.0
+rvdw                    = 1.0
+pme_order               = 4
+fourierspacing          = 0.12
+DispCorr                = EnerPres
+
+continuation            = yes            ; continue from NVT
+constraint_algorithm    = lincs
+constraints             = h-bonds
+lincs_iter              = 1
+lincs_order             = 4
+
+tcoupl                  = V-rescale
+tc-grps                 = RNA  Water_and_ions
+tau_t                   = 0.1  0.1
+ref_t                   = 300  300
+
+pcoupl                  = C-rescale      ; robust eq barostat (GROMACS >=2021)
+pcoupltype              = isotropic
+tau_p                   = 2.0
+ref_p                   = 1.0
+compressibility         = 4.5e-5
+
+gen_vel                 = no
+pbc                     = xyz

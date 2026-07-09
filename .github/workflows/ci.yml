@@ -1,0 +1,16 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install engine + analysis deps
+        run: pip install openmm numpy pyyaml
+      - name: Validate ranking logic (pure numpy, must reproduce known ordering)
+        run: python src/validate_analysis.py
+      - name: OpenMM engine smoke test (real dynamics -> analysis -> ordering)
+        run: python smoke/openmm_smoke.py
