@@ -145,7 +145,7 @@ g16 < inosine_opt.gjf > inosine_opt.log
 g16 < inosine_esp.gjf > inosine_esp.log
 ```
 
-### 4b. QM ESP — Psi4 route (open-source; matches the Modal/Q7 burst)
+### 4b. QM ESP — Psi4 route (open-source)
 ```python
 # inosine_resp.py  — geometry opt + MK ESP + two-stage RESP via the `resp` package
 import psi4, resp
@@ -187,12 +187,12 @@ EOF
 
 ---
 
-## 5. One-paragraph summary for Q4/Q6
+## 5. One-paragraph summary
 
 > For inosine, the ribose–phosphate backbone and the imidazole/6-oxo edges are inherited verbatim from
 > χOL3 and guanine; the aromatic C2–H is seeded from adenine; and the complete base charge set plus the
 > glycosidic χ torsion are derived by HF/6-31G\* RESP and a relaxed χ scan — the published standard
-> (Aduri 2007; Ducque 2024), against which the fitted charges are audited atom-by-atom. Claude's role is
-> to *prioritize* which terms need QM (χ and the full base charges) versus which inherit safely, to
-> *propose and justify* the guanine⊕adenine analogy seeds, and to *audit* the RESP fit against the
-> published set — not to replace the QM.
+> (Aduri 2007; Ducque 2024), against which the fitted charges are audited atom-by-atom. The judgment
+> calls in this plan are which terms need QM (χ and the full base charges) versus which inherit
+> safely, and the guanine⊕adenine analogy seeds — proposed and justified here, not substituted
+> for the QM.

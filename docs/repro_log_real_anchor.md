@@ -102,4 +102,4 @@ These clean-room reproduction files are written under `real_anchor/repro_work/`,
 The headline artifact **regenerates end-to-end from a clean checkout**: build → MD → analyze recovers
 GC > mixed > AU on the interstrand-energy readout, with energies matching the committed values within
 error. A reviewer opening the repo can run six lines and watch the result fall out — it is
-demonstrated, not asserted. This is the evidence behind the rewritten Q8.
+demonstrated, not asserted.
