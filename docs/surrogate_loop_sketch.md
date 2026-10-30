@@ -41,7 +41,7 @@ changes the answer.
 
 1. **Featurize.** Cheap, physically-motivated descriptors computed without MD: number and geometry of
    Watson–Crick H-bond donors/acceptors on the pairing edge; ring count / aromatic surface area;
-   dipole and partial-charge summary from the RESP fit (Task 1 already produces these per base);
+   dipole and partial-charge summary from the RESP fit (the parameterization stage already produces these per base);
    stacking-relevant polarizability proxy; pNAB geometric-closure score. ~10–20 features per base.
 2. **Train a cheap surrogate.** Regress features → **short-MD interstrand interaction energy** (the
    `real_anchor` observable, *not* absolute Tm). A **Gaussian process** is the natural first choice
@@ -62,14 +62,13 @@ discriminate. **Stopping criterion:** top-decile membership stable across two co
 or predictive σ over the unlabeled top quartile drops below the ~12 kcal/mol anchor-to-anchor gap
 (below which the surrogate can no longer reorder the shortlist).
 
-## Why this is agentic end-to-end
+## Why this stays auditable
 
-The loop is **agentic** end-to-end: the agent featurizes each candidate from its RESP fit and geometry,
-dispatches the short-MD label jobs, refits the surrogate, and selects the next batch — the same
-orchestration the pipeline already uses, closed into a loop. And it is **auditable**: a reviewer
-agent audits the surrogate exactly as it audits the MD numbers — checking that predicted
-rankings that promote a candidate into the MD queue are traceable to features and labels, not to an
-overfit model. The surrogate never *replaces* MD; it decides *where MD runs*.
+The loop is automated end-to-end — featurization from the RESP fit and geometry, dispatching
+the short-MD label jobs, refitting the surrogate, and selecting the next batch are the same
+orchestration the pipeline already uses, closed into a loop. And it stays auditable: any
+ranking that promotes a candidate into the MD queue must be traceable to features and labels,
+not to an overfit model. The surrogate never *replaces* MD; it decides *where MD runs*.
 
 ## Honest risk
 
@@ -85,5 +84,5 @@ features are insufficient — a finding, not a failure.
 
 Because ~20 ps of CPU MD already separates the anchors on the interaction-energy readout, a cheap
 uncertainty-aware surrogate trained on short-MD energies can pre-rank the full ~O(10²) candidate set,
-so production multi-ns GPU MD is spent only on the top decile — an agentic, reviewer-audited
+so production multi-ns GPU MD is spent only on the top decile — a reviewer-auditable
 active-learning loop that scales the screen without diluting its rigor.

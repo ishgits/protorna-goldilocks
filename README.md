@@ -44,7 +44,7 @@ this stub validates.
 ```
   pNAB build            pNAB coarse score        explicit-solvent MD         analysis
  ┌────────────┐  →  ┌──────────────────────┐ → ┌───────────────────────┐ → ┌───────────────┐
- │ canonical +│     │ geometric + energetic│   │ AMBER χOL3/OL3 + OPC   │   │ RMSD, bp      │
+ │ canonical +│     │ geometric + energetic│   │ AMBER χOL3/OL3 + water │   │ RMSD, bp      │
  │ variant    │     │ filter to shortlist  │   │ (OpenMM, GPU)          │   │ persistence,  │
  │ RNA duplex │     │                      │   │ on Purdue RCAC / GPU   │   │ MD→Tm rank    │
  └────────────┘     └──────────────────────┘   └───────────────────────┘   └───────────────┘
@@ -96,7 +96,7 @@ protorna-goldilocks/
 │   ├── negishi/              # account eapsdept, partition gpu, ROCm container GROMACS
 │   └── gautschi/             # account pearce21, partition smallgpu, module GROMACS 2024.3
 ├── docs/                    # methods, repro log, param plan, figure caption
-├── results/                 # anchor_ordering_v2.{png,svg} + plot_anchor_ordering_v2.py
+├── results/                 # anchor_ordering_v2.{png,svg}, real_anchor_ordering.png, plot_anchor_ordering_v2.py
 ├── slurm/run_md.sbatch       # OpenMM/CUDA template (portable / local NVIDIA path)
 └── .github/workflows/ci.yml  # runs validate_analysis + openmm_smoke on every push
 ```
